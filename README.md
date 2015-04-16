@@ -3,4 +3,4 @@
 
 
 Documentação:
-http://godoc.org/github.com/zokis/DwarfDB
+http://godoc.org/github.com/zokis/dwarfdb
