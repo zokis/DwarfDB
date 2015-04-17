@@ -33,41 +33,41 @@ func TestSomething(t *testing.T) {
     {"-", -2.789e+14},
   }
 
-  ddb_save := DwarfDBLoad("db.dwarf", true)
-  ddb_save.Set("x", "v")
-  ddb_save.Set("-", -278900000000000.0)
-  ddb_save.Set("1", 1.0)
-  ddb_save.Set("2", 2.2)
-  ddb_save.Set("f", false)
-  ddb_save.Set("n", nil)
-  ddb_save.Set("t", true)
-  ddb_save.Set("u", "日本語の手紙をテスト")
-  ddb_save.Rem("x")
+  ddbSave := DwarfDBLoad("db.dwarf", true)
+  ddbSave.Set("x", "v")
+  ddbSave.Set("-", -278900000000000.0)
+  ddbSave.Set("1", 1.0)
+  ddbSave.Set("2", 2.2)
+  ddbSave.Set("f", false)
+  ddbSave.Set("n", nil)
+  ddbSave.Set("t", true)
+  ddbSave.Set("u", "日本語の手紙をテスト")
+  ddbSave.Rem("x")
 
-  ddb_load := DwarfDBLoad("db.dwarf", false)
+  ddbLoad := DwarfDBLoad("db.dwarf", false)
 
-  values := ddb_load.GetAll()
+  values := ddbLoad.GetAll()
   expected := []string{"-", "1", "2", "f", "n", "t", "u"}
 
   if StrsEquals(values, expected) == false {
     t.Errorf("GetAll: %s != %s", values, expected)
   }
 
-  _, err := ddb_load.Get("x")
+  _, err := ddbLoad.Get("x")
   if err == nil {
     t.Errorf("The key 'x' could not exist")
   }
 
   for _, test := range tests {
-    if value, _ := ddb_load.Get(test.key); value != test.value {
+    if value, _ := ddbLoad.Get(test.key); value != test.value {
       t.Errorf("Key %s: %s != %s", test.key, value, test.value)
     }
   }
 
-  ddb_save.DelDB()
-  ddb_del := DwarfDBLoad("db.dwarf", false)
+  ddbSave.DelDB()
+  ddbDel := DwarfDBLoad("db.dwarf", false)
 
-  if ddb_del.Len() > 0 {
+  if ddbDel.Len() > 0 {
     t.Errorf("The database should be empty")
   }
 }
