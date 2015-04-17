@@ -35,7 +35,7 @@ func DwarfDBLoad(path string, force bool) DwarfDB {
   return ddb
 }
 
-// force the writing to the file system
+// Dump force the writing to the file system
 func (ddb *DwarfDB) Dump() bool {
   ddb.dumpdb(true)
   return true
@@ -73,9 +73,8 @@ func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   value, ok := ddb.db[key]
   if ok {
     return value, nil
-  } else {
-    return nil, errors.New("Not Found")
   }
+  return nil, errors.New("not found")
 }
 
 func (ddb *DwarfDB) GetAll() []string {
