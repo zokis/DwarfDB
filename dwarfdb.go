@@ -8,8 +8,7 @@ import (
 )
 
 func pathExists(path string) (bool, error) {
-  _, err := os.Stat(path)
-  if err == nil {
+  if _, err := os.Stat(path); err == nil {
     return true, nil
   }
   if os.IsNotExist(err) {
@@ -36,6 +35,7 @@ func DwarfDBLoad(path string, force bool) DwarfDB {
   return ddb
 }
 
+// force the writing to the file system
 func (ddb *DwarfDB) Dump() bool {
   ddb.dumpdb(true)
   return true
@@ -73,8 +73,9 @@ func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   value, ok := ddb.db[key]
   if ok {
     return value, nil
+  } else {
+    return nil, errors.New("Not Found")
   }
-  return nil, errors.New("not found")
 }
 
 func (ddb *DwarfDB) GetAll() []string {
