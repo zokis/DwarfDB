@@ -5,20 +5,20 @@ import (
 )
 
 type Test struct {
-    key string
-    value interface{}
+  key   string
+  value interface{}
 }
 
 func StrsEquals(a, b []string) bool {
-    if len(a) != len(b) {
-        return false
+  if len(a) != len(b) {
+    return false
+  }
+  for i, v := range a {
+    if v != b[i] {
+      return false
     }
-    for i, v := range a {
-        if v != b[i] {
-            return false
-        }
-    }
-    return true
+  }
+  return true
 }
 
 func TestSomething(t *testing.T) {
@@ -43,7 +43,6 @@ func TestSomething(t *testing.T) {
   ddb_save.Set("t", true)
   ddb_save.Set("u", "日本語の手紙をテスト")
   ddb_save.Rem("x")
-
 
   ddb_load := DwarfDBLoad("db.dwarf", false)
 
