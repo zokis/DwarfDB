@@ -73,9 +73,8 @@ func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   value, ok := ddb.db[key]
   if ok {
     return value, nil
-  } else {
-    return nil, errors.New("not found")
   }
+  return nil, errors.New("not found")
 }
 
 func (ddb *DwarfDB) GetAll() []string {
