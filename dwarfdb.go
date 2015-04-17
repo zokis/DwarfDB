@@ -17,12 +17,15 @@ func pathExists(path string) (bool, error) {
   return false, err
 }
 
+
+// DwarfDB structure
 type DwarfDB struct {
   path  string
   force bool
   db    map[string]interface{}
 }
 
+// DwarfDBLoad loads a new DwarfDB
 func DwarfDBLoad(path string, force bool) DwarfDB {
   exist, err := pathExists(path)
   if err != nil {
@@ -63,12 +66,14 @@ func (ddb *DwarfDB) dumpdb(force bool) bool {
   return true
 }
 
+// Set a new key/value in DwarfDB
 func (ddb *DwarfDB) Set(key string, value interface{}) bool {
   ddb.db[key] = value
   ddb.dumpdb(ddb.force)
   return true
 }
 
+// Get a value in DwarfDB
 func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   value, ok := ddb.db[key]
   if ok {
@@ -77,6 +82,8 @@ func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   return nil, errors.New("not found")
 }
 
+
+// GetAll keys in the DwarfDB
 func (ddb *DwarfDB) GetAll() []string {
   keys := make([]string, 0, len(ddb.db))
   for k := range ddb.db {
@@ -85,16 +92,20 @@ func (ddb *DwarfDB) GetAll() []string {
   return keys
 }
 
+
+// Len number of keys in the DwarfDB
 func (ddb *DwarfDB) Len() int {
   return len(ddb.db)
 }
 
+// Rem removes a key/value od DwarfDB
 func (ddb *DwarfDB) Rem(key string) bool {
   delete(ddb.db, key)
   ddb.dumpdb(ddb.force)
   return true
 }
 
+// DelDB clean the DwarfDB
 func (ddb *DwarfDB) DelDB() bool {
   ddb.db = make(map[string]interface{})
   ddb.dumpdb(ddb.force)
