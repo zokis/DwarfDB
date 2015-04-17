@@ -8,7 +8,8 @@ import (
 )
 
 func pathExists(path string) (bool, error) {
-  if _, err := os.Stat(path); err == nil {
+  _, err := os.Stat(path)
+  if err == nil {
     return true, nil
   }
   if os.IsNotExist(err) {
