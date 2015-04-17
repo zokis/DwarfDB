@@ -68,7 +68,7 @@ func TestSomething(t *testing.T) {
   ddb_save.DelDB()
   ddb_del := DwarfDBLoad("db.dwarf", false)
 
-  if ddb_del.Len() < 0 {
+  if ddb_del.Len() > 0 {
     t.Errorf("The database should be empty")
   }
 }
