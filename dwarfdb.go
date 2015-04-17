@@ -74,7 +74,7 @@ func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   if ok {
     return value, nil
   } else {
-    return nil, errors.New("Not Found")
+    return nil, errors.New("not found")
   }
 }
 
