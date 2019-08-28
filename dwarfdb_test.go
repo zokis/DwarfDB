@@ -2,6 +2,7 @@ package dwarfdb
 
 import (
   "testing"
+  "sort"
 )
 
 type Test struct {
@@ -47,7 +48,9 @@ func TestSomething(t *testing.T) {
   ddbLoad := DwarfDBLoad("db.dwarf", false)
 
   values := ddbLoad.GetAll()
-  expected := []string{"-", "1", "2", "f", "n", "t", "u"}
+  sort.Strings(values)
+  expected := []string{"n", "t", "u", "-", "1", "2", "f"}
+  sort.Strings(expected)
 
   if StrsEquals(values, expected) == false {
     t.Errorf("GetAll: %s != %s", values, expected)
@@ -62,6 +65,11 @@ func TestSomething(t *testing.T) {
     if value, _ := ddbLoad.Get(test.key); value != test.value {
       t.Errorf("Key %s: %s != %s", test.key, value, test.value)
     }
+  }
+
+  exists := ddbLoad.Exists("1")
+  if exists == false {
+    t.Errorf("GetAll: %s != %s", values, expected)
   }
 
   ddbSave.DelDB()

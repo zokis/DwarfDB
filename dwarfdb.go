@@ -74,6 +74,12 @@ func (ddb *DwarfDB) Set(key string, value interface{}) bool {
   return true
 }
 
+// Set a new key/value in DwarfDB
+func (ddb *DwarfDB) Exists(key string) bool {
+  _, ok := ddb.db[key]
+  return ok
+}
+
 // Get a value in DwarfDB
 func (ddb *DwarfDB) Get(key string) (interface{}, error) {
   value, ok := ddb.db[key]
